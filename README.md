@@ -1,6 +1,6 @@
 # gemini2codex
 
-[Chinese](README.zh-CN.md)
+[中文](README.zh-CN.md)
 
 `gemini2codex` runs a local stdio MCP server that allows Codex to delegate frontend development, general implementation, and writing tasks to Gemini. Codex handles task scoping, authorization, integration, and verification, while Gemini executes the delegated work.
 
