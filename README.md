@@ -4,7 +4,7 @@
 
 ## 快速运行
 
-将以下内容复制给 Codex，由 Codex 完成下载、依赖检查、构建、MCP 配置和连接验证。
+将以下内容复制给 Codex，由 Codex 完成下载、依赖检查、构建、MCP 配置和连接验证。安装后，每次启动 MCP 都会检查 GitHub 最新稳定版本，有新版时自动下载、构建并运行。
 
 ```text
 请安装并配置 https://github.com/jiassia/gemini2codex，让当前 Codex 可以调用 Gemini。
@@ -21,7 +21,7 @@
 Codex 也可通过以下命令下载、构建并启动指定版本的 stdio MCP 服务：
 
 ```sh
-npx --yes --package=github:jiassia/gemini2codex#v2.2.0 gemini2codex
+npx --yes --package=github:jiassia/gemini2codex#v2.3.0 gemini2codex
 ```
 
 ## 环境要求

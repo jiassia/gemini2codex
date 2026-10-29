@@ -13,7 +13,7 @@ const config = await readFile(configPath, 'utf8').catch(error => { if (error.cod
 const stamp = new Date().toISOString().replace(/[:.]/g, '-');
 if (config) await copyFile(configPath, `${configPath}.before-gemini-writer-${stamp}.bak`);
 const command = process.execPath.replaceAll('\\', '/');
-const args = [root.replaceAll('\\', '/') + 'dist/index.js'];
+const args = [root.replaceAll('\\', '/') + 'scripts/launch.mjs'];
 // Recognize ordinary TOML table spelling, including quoted keys, indentation,
 // inline comments and array tables as section boundaries. Keep unrelated text verbatim.
 const keyPattern = String.raw`(?:[A-Za-z0-9_-]+|"(?:[^"\\]|\\.)*"|'[^']*')`;
@@ -68,9 +68,11 @@ const collaborationApprovals = collaborationTools.map(tool => {
 }).join('');
 let serverBody = ownSections.find(section => section.name === 'mcp_servers.gemini_writer')?.body ?? '';
 for (const [key, value] of Object.entries({ command, args, cwd: root.replaceAll('\\', '/') })) serverBody = setting(serverBody, key, quote(value));
-for (const [key, value] of Object.entries({ env_vars: ['HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'NO_PROXY', 'http_proxy', 'https_proxy', 'all_proxy', 'no_proxy', 'GEMINI_API_KEY'], startup_timeout_sec: 30, tool_timeout_sec: Math.max(180, Math.ceil(Number(env.WRITER_TIMEOUT_MS) / 1000) + 30) })) {
+for (const [key, value] of Object.entries({ env_vars: ['HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'NO_PROXY', 'http_proxy', 'https_proxy', 'all_proxy', 'no_proxy', 'GEMINI_API_KEY'], startup_timeout_sec: 600, tool_timeout_sec: Math.max(180, Math.ceil(Number(env.WRITER_TIMEOUT_MS) / 1000) + 30) })) {
   if (!assignment(key).test(serverBody)) serverBody = setting(serverBody, key, quote(value));
 }
+const previousStartup = serverBody.match(assignment('startup_timeout_sec'))?.[0].match(/=\s*(\d+)/);
+if (previousStartup && Number(previousStartup[1]) < 600) serverBody = setting(serverBody, 'startup_timeout_sec', '600');
 // Existing API credentials stay in place; newly configured credentials are inherited,
 // never copied from the process environment into the configuration file.
 if (env.WRITER_PROVIDER === 'gemini-api') {

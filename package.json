@@ -1,6 +1,6 @@
 {
   "name": "gemini2codex",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Local MCP server connecting Codex to Gemini agents and writing tools",
   "license": "MIT",
   "type": "module",
@@ -8,7 +8,7 @@
     "node": ">=22"
   },
   "bin": {
-    "gemini2codex": "dist/index.js"
+    "gemini2codex": "scripts/launch.mjs"
   },
   "files": [
     "dist",
@@ -19,13 +19,14 @@
     "docs/AGENTS.gemini-writer.md",
     "tsconfig.json",
     ".env.example",
-    "*.cmd"
+    "*.cmd",
+    "scripts/launch.mjs"
   ],
   "scripts": {
     "build": "tsc && node scripts/build-native.mjs",
     "prepare": "npm run build",
-    "start": "node dist/index.js",
-    "healthcheck": "node dist/index.js --healthcheck",
+    "start": "node scripts/launch.mjs",
+    "healthcheck": "node scripts/launch.mjs --healthcheck",
     "configure:codex": "node scripts/install-codex.mjs"
   },
   "dependencies": {

@@ -7,7 +7,7 @@ import type { ProviderProgress } from './types.js';
 import type { Config } from './config.js';
 
 export const supervisorProtocolVersion = 1;
-export const supervisorRuntimeVersion = '2.2.0';
+export const supervisorRuntimeVersion = '2.3.0';
 export type SupervisorMethod = 'hello' | 'spawn' | 'submit' | 'get' | 'list' | 'sendMessage' | 'followup' | 'cancel' | 'wait' | 'generate' | 'health' | 'shutdown' | 'restartIfIdle';
 export interface SupervisorOwner {
   protocol: number;
