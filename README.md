@@ -61,6 +61,10 @@ Codex 根据 [.env.example](.env.example) 配置环境变量，父进程变量�
 
 `gemini2codex --help` 显示帮助。源码安装可执行 `node dist/index.js --help`。`npm run healthcheck` 和工具 `gemini_health` 会显式请求 Provider。普通初始化、工具列表和 ping 不启动 agy。
 
+## 友链
+
+[LINUX DO 社区](https://linux.do/)
+
 ## 许可证
 
 [MIT](LICENSE)
