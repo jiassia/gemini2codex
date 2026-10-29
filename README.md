@@ -2,6 +2,28 @@
 
 通过本地 stdio MCP 服务，让 Codex 调用 Gemini 完成前端开发、通用实现和写作任务。Codex 负责任务范围、授权、集成与验收；Gemini 负责执行委派任务。
 
+## 快速运行
+
+将以下内容复制给 Codex，由 Codex 完成下载、依赖检查、构建、MCP 配置和连接验证。
+
+```text
+请安装并配置 https://github.com/jiassia/gemini2codex，让当前 Codex 可以调用 Gemini。
+
+请自行完成以下操作：
+1. 检查 Node.js 22+、npm、Git，以及 Antigravity CLI agy 的安装和登录状态，补齐构建依赖。
+2. 将仓库下载到本地固定目录，执行 npm ci，自动完成源码构建。
+3. 执行 npm run configure:codex，安装 MCP 配置和自动委派规则。
+4. 验证 MCP 初始化、工具列表和 ping，完成后报告安装目录及验证结果，并提示新开 Codex 会话。
+
+请直接执行安装和配置，不要只列出步骤或要求用户手动编辑配置文件。
+```
+
+Codex 也可通过以下命令下载、构建并启动指定版本的 stdio MCP 服务：
+
+```sh
+npx --yes --package=github:jiassia/gemini2codex#v2.2.0 gemini2codex
+```
+
 ## 环境要求
 
 需要 Node.js 22 或更高版本、npm 和 Git。Windows 构建还需要 .NET Framework 4 的 C# 编译器，构建脚本会从系统目录查找 csc.exe。
@@ -42,25 +64,3 @@ Codex 根据 [.env.example](.env.example) 配置环境变量，父进程变量�
 ## 许可证
 
 [MIT](LICENSE)
-
-## 快速运行
-
-将以下内容复制给 Codex，由 Codex 完成下载、依赖检查、构建、MCP 配置和连接验证。
-
-```text
-请安装并配置 https://github.com/jiassia/gemini2codex，让当前 Codex 可以调用 Gemini。
-
-请自行完成以下操作：
-1. 检查 Node.js 22+、npm、Git，以及 Antigravity CLI agy 的安装和登录状态，补齐构建依赖。
-2. 将仓库下载到本地固定目录，执行 npm ci，自动完成源码构建。
-3. 执行 npm run configure:codex，安装 MCP 配置和自动委派规则。
-4. 验证 MCP 初始化、工具列表和 ping，完成后报告安装目录及验证结果，并提示新开 Codex 会话。
-
-请直接执行安装和配置，不要只列出步骤或要求用户手动编辑配置文件。
-```
-
-Codex 也可通过以下命令下载、构建并启动指定版本的 stdio MCP 服务：
-
-```sh
-npx --yes --package=github:jiassia/gemini2codex#v2.2.0 gemini2codex
-```
