@@ -2,8 +2,6 @@
 
 通过本地 stdio MCP 服务，让 Codex 调用 Gemini 完成前端开发、通用实现和写作任务。Codex 负责任务范围、授权、集成与验收；Gemini 负责执行委派任务。
 
-当前仓库为私有审阅版本，下载与克隆需要仓库访问权限及 GitHub 身份验证。确认公开前不提供匿名安装。
-
 ## 环境要求
 
 需要 Node.js 22 或更高版本、npm 和 Git。Windows 构建还需要 .NET Framework 4 的 C# 编译器，构建脚本会从系统目录查找 csc.exe。
@@ -16,7 +14,7 @@
 npx --yes --package=github:jiassia/gemini2codex#v2.2.0 gemini2codex
 ```
 
-npm 会从 GitHub 下载指定版本、安装依赖、构建源码并启动服务，无需预先克隆仓库。本命令使用 GitHub 源码包，不依赖 npm registry 中的同名包。首次运行需要网络和上述构建环境。启动后服务等待 MCP 客户端通过标准输入输出通信，单独运行时不会显示聊天界面。
+npm 会从 GitHub 下载指定版本、安装依赖、构建源码并启动 stdio MCP 服务。
 
 在 Codex 的 `config.toml` 中加入以下配置。Windows 使用 `npx.cmd`，其他系统使用 `npx`。
 
@@ -27,11 +25,11 @@ args = ["--yes", "--package=github:jiassia/gemini2codex#v2.2.0", "gemini2codex"]
 startup_timeout_sec = 180
 ```
 
-配置后新开 Codex 会话。为兼容现有调用，服务名 `gemini_writer` 和工具名 `gemini_*` 保持稳定。
+配置后新开 Codex 会话。
 
 可将以下安装要求交给支持终端操作的 AI：
 
-> 请从 https://github.com/jiassia/gemini2codex 自动下载并安装 MCP。先检查 Node.js 22+、npm、Git 和已登录的 agy，再按照 README 配置 Codex；如需自动委派规则，请采用源码安装并执行 npm run configure:codex。完成后检查 MCP 初始化和工具列表，并说明需要新开会话。账号登录由用户完成。
+> 请从 https://github.com/jiassia/gemini2codex 自动下载并安装 MCP，按照 README 检查依赖、构建源码并执行 npm run configure:codex，完成后验证 MCP 初始化和工具列表。
 
 ## 从源码构建
 
@@ -66,7 +64,7 @@ npm run configure:codex
 }
 ```
 
-默认写入和原生工具权限均关闭。原生工具模式以本机用户权限运行，固定命令列表不限制原生工具，也不提供操作系统沙箱。权限应与实际委派范围一致。`kind` 支持 `frontend`、`general` 和 `writing`。
+`kind` 支持 `frontend`、`general` 和 `writing`。默认写入和原生工具权限均关闭；上述授权使 Gemini 以本机用户权限读写项目并执行工具。
 
 创建任务后使用返回的 ID 查询或继续任务。`gemini_wait_agent` 配合 `after_revision` 获取新增进度；等待超时只返回当前状态。任务默认不设执行时限，使用 `gemini_interrupt_agent` 显式中断。`completed` 表示 Gemini 已提交报告，仍需检查实际文件和构建结果。
 
@@ -79,8 +77,6 @@ npm run configure:codex
 可选官方 API 接入需要同时设置 `WRITER_PROVIDER=gemini-api`、`GEMINI_API_KEY` 和 `GEMINI_API_MODEL`，并选择支持所需思考档位的模型。服务不会自动切换 Provider。凭证应保存在本机环境，不应提交到仓库。
 
 `gemini2codex --help` 显示帮助。源码安装可执行 `node dist/index.js --help`。`npm run healthcheck` 和工具 `gemini_health` 会显式请求 Provider。普通初始化、工具列表和 ping 不启动 agy。
-
-仓库仅包含运行、构建和安装所需源码与文档，测试数据、历史诊断记录、依赖和构建产物不纳入源码发布。
 
 ## 许可证
 
