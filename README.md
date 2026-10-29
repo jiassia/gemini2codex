@@ -29,7 +29,9 @@ startup_timeout_sec = 180
 
 可将以下安装要求交给支持终端操作的 AI：
 
-> 请从 https://github.com/jiassia/gemini2codex 自动下载并安装 MCP，按照 README 检查依赖、构建源码并执行 npm run configure:codex，完成后验证 MCP 初始化和工具列表。
+```text
+请从 https://github.com/jiassia/gemini2codex 自动下载并安装 MCP，按照 README 检查依赖、构建源码并执行 npm run configure:codex，完成后验证 MCP 初始化和工具列表。
+```
 
 ## 从源码构建
 
