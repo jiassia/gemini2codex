@@ -17,6 +17,7 @@
     "scripts/build-native.mjs",
     "scripts/install-codex.mjs",
     "docs/AGENTS.gemini-writer.md",
+    "README.zh-CN.md",
     "tsconfig.json",
     ".env.example",
     "*.cmd",
